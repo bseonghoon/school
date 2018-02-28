@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.dao.StaffDao">
+
+	<insert id="insertStaff" parameterType="com.naver.vo.Staff">
+		/* StaffDao.insertStaff
+		*/
+		INSERT INTO
+		staff(
+		name
+		, birth)
+		VALUES(
+		#{name}
+		,#{birth}
+		)
+	</insert>
+
+	<select id="getStaff" resultType="com.naver.vo.Staff"
+		parameterType="HashMap">
+		/* StaffDao.getStaff */
+		SELECT id
+		, name
+		, birth
+		FROM
+		staff
+		ORDER BY id DESC
+		LIMIT #{offset}, #{count}
+	</select>
+
+
+	<delete id="deleteStaff">
+		/* StaffDao.deleteStaff */
+		DELETE FROM
+		staff
+		WHERE
+		id =
+		#{id}
+	</delete>
+
+	<update id="changeStaff" parameterType="com.naver.vo.Staff">
+		/* StaffDao.changeStaff
+		*/
+		UPDATE
+		staff
+		SET
+		name =
+		#{name}
+		,birth = #{birth}
+		WHERE id = #{id}
+	</update>
+
+	<select id="getCount" resultType="Integer">
+		/* StaffDao.getCount */
+		SELECT
+		COUNT(*)
+		FROM staff;
+	</select>
+</mapper> 

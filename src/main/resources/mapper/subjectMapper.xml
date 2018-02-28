@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.dao.SubjectDao">
+
+	<insert id="insertSubject" parameterType="com.naver.vo.Subject">
+	/* SubjectDao.insertStudent */
+		INSERT INTO
+		subject(
+		subject_name)
+		VALUES(
+		#{subjectName}
+		)
+	</insert>
+
+	<select id="getSubject" resultType="com.naver.vo.Subject" parameterType="HashMap">
+		SELECT subject_id
+		, subject_name
+		FROM
+		subject
+		ORDER BY subject_id DESC
+		LIMIT #{offset}, #{count}
+	</select>
+
+
+	<delete id="deleteSubject" parameterType="Integer">
+		DELETE FROM
+		subject
+		WHERE
+		subject_id = #{subjectId}
+	</delete>
+	
+	<update id="changeSubject" parameterType="com.naver.vo.Subject">
+	   UPDATE
+	   subject
+	   SET
+	   subject_name = #{subjectName}
+	   WHERE subject_id = #{subjectId}
+	</update>
+	
+	<select id="getCount" resultType="Integer">
+	   SELECT COUNT(*)
+	   FROM subject;
+	</select>
+</mapper> 

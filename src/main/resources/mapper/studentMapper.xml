@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.dao.StudentDao">
+
+	<insert id="insertStudent" parameterType="com.naver.vo.Student">
+		/* StudentDao.insertStaff
+		*/
+		INSERT INTO
+		student(
+		name
+		, birth)
+		VALUES(
+		#{name}
+		,#{birth}
+		)
+	</insert>
+
+	<select id="getStudent" resultType="com.naver.vo.Student"
+		parameterType="HashMap">
+		/* StudentDao.getStaff */
+		SELECT id
+		, name
+		, birth
+		FROM
+		student
+		ORDER BY id DESC
+		LIMIT #{offset}, #{count}
+	</select>
+
+
+	<delete id="deleteStudent">
+		/* StudentDao.deleteStaff */
+		DELETE FROM
+		student
+		WHERE
+		id =
+		#{id}
+	</delete>
+
+	<update id="changeStudent" parameterType="com.naver.vo.Student">
+		/* StudentDao.changeStaff
+		*/
+		UPDATE
+		student
+		SET
+		name =
+		#{name}
+		,birth = #{birth}
+		WHERE id = #{id}
+	</update>
+
+	<select id="getCount" resultType="Integer">
+		/* StudentDao.getCount */
+		SELECT
+		COUNT(*)
+		FROM student;
+	</select>
+</mapper> 

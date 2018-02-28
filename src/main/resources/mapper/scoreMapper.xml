@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.dao.ScoreDao">
+
+	<insert id="insertScore" parameterType="com.naver.vo.Score">
+		/* ScoreDao.insertScore
+		*/
+		INSERT INTO
+		score(
+		student_id
+		, subject_id
+		, score)
+		VALUES(
+		#{studentId}
+		,#{subjectId}
+		,#{score}
+		)
+	</insert>
+
+	<select id="getScore" resultType="com.naver.vo.Score"
+		parameterType="HashMap">
+		/* ScoreDao.getScore */
+		SELECT student_id
+		, subject_id
+		,
+		score
+		FROM
+		score
+		ORDER BY student_id, subject_id DESC
+		LIMIT #{offset},
+		#{count}
+	</select>
+
+
+	<delete id="deleteScore" parameterType="HashMap">
+		/* ScoreDao.deleteScore
+		*/
+		DELETE FROM
+		score
+		WHERE
+		student_id =
+		#{studentId}
+		AND
+		subject_id =
+		#{subjectId}
+	</delete>
+
+	<update id="changeScore" parameterType="com.naver.vo.Score">
+		/* ScoreDao.changeScore
+		*/
+		UPDATE
+		score
+		SET
+		score =
+		#{score}
+		WHERE student_id = #{studentId}
+		AND
+		subject_id = #{subjectId}
+	</update>
+
+	<select id="getCount" resultType="Integer">
+		/* ScoreDao.getCount */
+		SELECT
+		COUNT(*)
+		FROM score;
+	</select>
+
+	<select id="scanStudentScoreInfo" resultType="com.naver.vo.Score"
+		parameterType="HashMap">
+		SELECT
+		student_id,
+		subject_id,
+		score
+		FROM score
+		WHERE
+		student_id = #{studentId}
+		ORDER BY subject_id
+		LIMIT #{offset},
+        #{count}
+	</select>
+
+	<select id="getStudentCount" resultType="Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		score
+		where student_id = #{studentId}
+	</select>
+
+	<select id="scanSubjectScoreInfo" resultType="com.naver.vo.Score"
+		parameterType="HashMap">
+		SELECT
+		student_id,
+		subject_id,
+		score
+		FROM score
+		WHERE
+		subject_id = #{subjectId}
+		ORDER BY score
+		LIMIT #{offset},
+        #{count}
+	</select>
+
+	<select id="getSubjectCount" resultType="Integer">
+		SELECT
+		COUNT(*)
+		FROM score
+		where subject_id = #{subjectId}
+	</select>
+
+	<select id="getAverage" resultType="String">
+		SELECT
+		ROUND(AVG(score),2)
+		FROM score
+	</select>
+
+	<select id="getStudentAverage" resultType="String">
+		SELECT
+		ROUND(AVG(score),2)
+		FROM
+		score
+		WHERE student_id =
+		#{studentId}
+	</select>
+
+	<select id="getSubjectAverage" resultType="String">
+		SELECT
+		ROUND(AVG(score),2)
+		FROM
+		score
+		WHERE subject_id =
+		#{subjectId}
+	</select>
+</mapper> 
